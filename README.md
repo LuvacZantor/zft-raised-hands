@@ -4,7 +4,7 @@ ZFT Raised Hands is a system-agnostic Foundry VTT module that maintains an autho
 
 ## Version
 
-1.1.1
+1.4.1
 
 ## Foundry compatibility
 
