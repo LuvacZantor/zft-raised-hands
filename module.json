@@ -1,39 +1,64 @@
 {
-  "id": "zft-raised-hands",
-  "title": "ZFT Raised Hands",
-  "description": "Persistent raised-hand queue for Foundry VTT with GM queue management and player raise/lower controls.",
+  "id": "zft-critical-fumbles",
+  "title": "ZFT Critical Fumbles",
+  "description": "Detects and classifies single-result d20 rolls for configurable critical and fumble handling, seeds module-owned RollTable/Journal content, renders Journal-driven outcome chat cards, supports module-managed Playlist sound pools, tracks per-user critical/fumble totals, and creates optional Journal-targeted reminder Active Effects.",
+  "version": "1.2.0",
   "authors": [
     {
-      "name": "Zantor's Realms"
+      "name": "Luvac Zantor"
     }
   ],
-  "version": "1.4.1",
   "compatibility": {
     "minimum": "13",
-    "verified": "13.351",
-    "maximum": "13"
+    "verified": "14"
   },
-  "esmodules": [
-    "scripts/zft-raised-hands.mjs"
-  ],
-  "styles": [
-    "styles/zft-raised-hands.css"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
-  "socket": true,
   "relationships": {
-    "requires": [
+    "systems": [
       {
-        "id": "socketlib",
-        "type": "module",
-        "manifest": "https://github.com/farling42/foundryvtt-socketlib/releases/latest/download/module.json"
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {}
       }
     ]
-  }
+  },
+  "esmodules": [
+    "scripts/main.mjs",
+    "scripts/reminder-effects.mjs"
+  ],
+  "styles": [
+    "styles/zft-critical-fumbles.css"
+  ],
+  "packs": [
+    {
+      "name": "critical-fumble-tables",
+      "label": "Critical & Fumble Tables",
+      "type": "RollTable",
+      "path": "packs/critical-fumble-tables"
+    },
+    {
+      "name": "critical-fumble-results",
+      "label": "Critical & Fumble Results",
+      "type": "JournalEntry",
+      "path": "packs/critical-fumble-results"
+    },
+    {
+      "name": "critical-fumble-sounds",
+      "label": "Critical & Fumble Sounds",
+      "type": "Playlist",
+      "path": "packs/critical-fumble-sounds"
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "ZFT Critical Fumbles",
+      "sorting": "m",
+      "color": "#ffba00",
+      "packs": [
+        "critical-fumble-tables",
+        "critical-fumble-results",
+        "critical-fumble-sounds"
+      ],
+      "folders": []
+    }
+  ]
 }
