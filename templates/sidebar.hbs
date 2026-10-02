@@ -1,0 +1,54 @@
+<div class="zft-rh-body">
+  <header class="zft-rh-header">
+    <div class="zft-rh-title">
+      <i class="fa-solid fa-hand-point-up" aria-hidden="true"></i>
+      <span>{{localize "ZFT_RAISED_HANDS.QueueTitle"}}</span>
+    </div>
+    <span class="zft-rh-count">{{count}}</span>
+  </header>
+
+  <div class="zft-rh-summary">{{summary}}</div>
+
+  <ol class="zft-rh-list">
+    {{#each entries}}
+      <li class="zft-rh-row" data-user-id="{{userId}}">
+        <span class="zft-rh-order">{{order}}</span>
+        <img class="zft-rh-avatar" src="{{avatar}}" alt="{{name}}" loading="lazy">
+        <span class="zft-rh-user">
+          <span class="zft-rh-name">{{name}}</span>
+          <span class="zft-rh-status {{statusClass}}">{{status}}</span>
+        </span>
+        <span class="zft-rh-elapsed" data-raised-at="{{raisedAt}}">{{elapsed}}</span>
+{{#if @root.isGM}}
+        <button type="button"
+                class="zft-rh-clear-user"
+                data-action="clearUser"
+                data-user-id="{{userId}}"
+                data-tooltip="{{localize 'ZFT_RAISED_HANDS.Clear'}}">
+          <i class="fa-solid fa-check" aria-hidden="true"></i>
+        </button>
+        {{/if}}
+      </li>
+    {{else}}
+      <li class="zft-rh-empty">{{localize "ZFT_RAISED_HANDS.Empty"}}</li>
+    {{/each}}
+  </ol>
+
+{{#if isGM}}
+  <footer class="zft-rh-footer">
+    <button type="button" data-action="clearNext" {{#unless hasEntries}}disabled{{/unless}}>
+      <i class="fa-solid fa-forward-step" aria-hidden="true"></i>
+      {{localize "ZFT_RAISED_HANDS.ClearNext"}}
+    </button>
+    <button type="button" data-action="clearAll" {{#unless hasEntries}}disabled{{/unless}}>
+      <i class="fa-solid fa-check-double" aria-hidden="true"></i>
+      {{localize "ZFT_RAISED_HANDS.ClearAll"}}
+    </button>
+  </footer>
+  {{else}}
+  <div class="zft-rh-read-only">
+    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+    {{localize "ZFT_RAISED_HANDS.ReadOnly"}}
+  </div>
+  {{/if}}
+</div>
