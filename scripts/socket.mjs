@@ -31,10 +31,10 @@ function requireSocket() {
   return false;
 }
 
-async function setHandStateHandler(userId, raised) {
+async function setHandStateHandler(userId, raised, raisedAt = null) {
   if (!game.user.isGM) return false;
 
-  const result = await setUserRaisedAuthoritative(userId, Boolean(raised));
+  const result = await setUserRaisedAuthoritative(userId, Boolean(raised), raisedAt);
   if (result.changed && result.raised) {
     await socket?.executeForAllGMs("notifyRaised", userId);
   }
@@ -89,13 +89,19 @@ function playRaiseAlert() {
 
 export async function requestSetHandState(raised) {
   if (!requireSocket()) return false;
-  return socket.executeAsGM("setHandState", game.user.id, Boolean(raised));
+  return socket.executeAsGM("setHandState", game.user.id, Boolean(raised), null);
+}
+
+export async function requestSetUserHandState(userId, raised, raisedAt = null) {
+  if (!game.user.isGM || !userId) return false;
+  if (!requireSocket()) return false;
+  return socket.executeAsGM("setHandState", userId, Boolean(raised), raisedAt);
 }
 
 export async function requestClearUser(userId) {
   if (!game.user.isGM) return false;
   if (!requireSocket()) return false;
-  return socket.executeAsGM("setHandState", userId, false);
+  return socket.executeAsGM("setHandState", userId, false, null);
 }
 
 export async function requestClearNext() {

@@ -21,9 +21,13 @@ export function getQueueEntries() {
   return getQueue().entries;
 }
 
+export function getQueueEntry(userId) {
+  if (!userId) return null;
+  return getQueueEntries().find(entry => entry.userId === userId) ?? null;
+}
+
 export function isUserRaised(userId) {
-  if (!userId) return false;
-  return getQueueEntries().some(entry => entry.userId === userId);
+  return Boolean(getQueueEntry(userId));
 }
 
 function serializeMutation(work) {
@@ -44,7 +48,7 @@ async function writeEntries(entries) {
   await game.settings.set(MODULE_ID, QUEUE_SETTING, { entries: normalized });
 }
 
-export function setUserRaisedAuthoritative(userId, raised) {
+export function setUserRaisedAuthoritative(userId, raised, raisedAt = null) {
   return serializeMutation(async () => {
     if (!game.user.isGM) {
       console.warn(`[ZFT] ⚠️ v${MODULE_VERSION} | Rejected authoritative queue mutation from non-GM client`);
@@ -66,7 +70,11 @@ export function setUserRaisedAuthoritative(userId, raised) {
     }
 
     if (raised) {
-      entries.push({ userId, raisedAt: Date.now() });
+      const suppliedTimestamp = Number(raisedAt);
+      const timestamp = Number.isFinite(suppliedTimestamp) && suppliedTimestamp > 0
+        ? suppliedTimestamp
+        : Date.now();
+      entries.push({ userId, raisedAt: timestamp });
     } else {
       entries.splice(existingIndex, 1);
     }

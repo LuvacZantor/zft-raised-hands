@@ -4,7 +4,7 @@ ZFT Raised Hands is a system-agnostic Foundry VTT module that maintains an autho
 
 ## Version
 
-1.4.1
+1.4.2
 
 ## Foundry compatibility
 
@@ -26,6 +26,7 @@ ZFT Raised Hands is a system-agnostic Foundry VTT module that maintains an autho
 - Transient GM notification when a hand is raised
 - Configurable GM alert sound with enable/disable, audio file picker, and volume
 - Bundled default raised-hand chime
+- Optional bidirectional Party HUD integration when `party-monitor-dock` is active
 - No chat-card dependency
 - No game-system dependency
 
@@ -43,6 +44,20 @@ Each queue entry stores only:
 ```
 
 User names and online status are resolved live from Foundry's user collection.
+
+## Party HUD integration
+
+When Party HUD (`party-monitor-dock`) is active, ZFT Raised Hands automatically bridges Party HUD's built-in raised-hand Actor flag with the ZFT queue.
+
+- Raising or lowering a hand from Party HUD updates the ZFT queue.
+- Raising, lowering, or clearing a hand from ZFT updates Party HUD's built-in hand display.
+- The ZFT queue timestamp is mirrored to Party HUD so Party HUD's displayed raise order remains aligned with the queue.
+- Party HUD remains responsible for its own portrait animation and presentation.
+- No Party HUD files are modified.
+- The integration is optional and does nothing when Party HUD is inactive.
+- Non-GM Party HUD updates are accepted only for that user's assigned character; GM updates may manage any mapped player.
+
+ZFT Raised Hands remains the authoritative queue after initialization. On world load, an existing Party HUD raised-hand flag is adopted into an otherwise-unraised ZFT user entry so a visible hand is not lost; existing ZFT queue entries otherwise drive Party HUD state.
 
 ## Alert sound settings
 
@@ -62,6 +77,16 @@ Copy the `zft-raised-hands` directory into your Foundry `Data/modules/` director
 
 Copyright © 2026 Zantor's Realms, LLC. All rights reserved.
 
+## v1.4.2
+
+- Added optional bidirectional integration with Party HUD 3.2.2 (`party-monitor-dock`).
+- Party HUD's built-in Raise Hand action now feeds the ZFT Raised Hands queue.
+- ZFT raise/lower/clear actions now mirror to Party HUD's built-in `handRaised` Actor flag so Party HUD keeps its native hand animation.
+- Queue timestamps are mirrored to Party HUD so hand-order numbering stays aligned.
+- Existing Party HUD raised hands are reconciled into the queue on initialization instead of being discarded.
+- Added defensive handling for ambiguous cases where multiple non-GM users share the same assigned Actor.
+- Enforced the existing permission model when Party HUD changes originate from a non-GM user.
+- Kept Party HUD as an optional integration with no hard dependency and no modification of Party HUD files.
 
 ## v1.4.1
 

@@ -1,4 +1,4 @@
-console.log("[ZFT] 🚀 v1.4.1 | Initializing ZFT Raised Hands");
+console.log("[ZFT] 🚀 v1.4.2 | Initializing ZFT Raised Hands");
 
 import {
   MODULE_ID,
@@ -19,6 +19,10 @@ import {
   initializeSidebarUi,
   updateSidebarBadge
 } from "./ui.mjs";
+import {
+  initializePartyHudIntegration,
+  syncPartyHudFromQueue
+} from "./party-hud.mjs";
 
 Hooks.once("init", () => {
   game.settings.register(MODULE_ID, QUEUE_SETTING, {
@@ -27,7 +31,10 @@ Hooks.once("init", () => {
     type: Object,
     default: { entries: [] },
     restricted: true,
-    onChange: () => refreshLocalUi()
+    onChange: () => {
+      refreshLocalUi();
+      void syncPartyHudFromQueue();
+    }
   });
 
   game.settings.register(MODULE_ID, ALERT_ENABLED_SETTING, {
@@ -84,8 +91,9 @@ Hooks.once("init", () => {
 Hooks.once("setup", registerSidebarTab);
 Hooks.once("socketlib.ready", initSocket);
 
-Hooks.once("ready", () => {
+Hooks.once("ready", async () => {
   initializeSidebarUi();
+  await initializePartyHudIntegration();
   refreshLocalUi();
   console.log(`[ZFT] ✅ v${MODULE_VERSION} | ZFT Raised Hands ready`);
 });
