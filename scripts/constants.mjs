@@ -1,5 +1,5 @@
 export const MODULE_ID = "zft-raised-hands";
-export const MODULE_VERSION = "1.4.2";
+export const MODULE_VERSION = "1.4.3";
 export const QUEUE_SETTING = "queue";
 export const ALERT_ENABLED_SETTING = "alertSoundEnabled";
 export const ALERT_PATH_SETTING = "alertSoundPath";

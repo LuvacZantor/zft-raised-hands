@@ -4,17 +4,17 @@ ZFT Raised Hands is a system-agnostic Foundry VTT module that maintains an autho
 
 ## Version
 
-1.4.2
+1.4.3
 
 ## Foundry compatibility
 
 - Foundry VTT V13 Build 351
 - V14 is not supported by this build
-- Requires SocketLib
+- Requires SocketLib and ZFT Tools (tested with 0.1.0-dev.7; ZFT Tools stable release pending)
 
 ## Features
 
-- High-contrast yellow Player Raise/Lower Hand toggle in Token Controls
+- Raise/Lower Hand action in ZFT Tools for GMs and players (under the shared player-interaction controls)
 - Configurable Foundry keybinding (default: H)
 - Persistent world-level ordered queue
 - Native Raised Hands sidebar tab with live queue count badge for GMs and players
@@ -69,13 +69,21 @@ Configure under **Game Settings → Configure Settings → Module Settings → Z
 
 The sound plays only on connected GM clients when a hand is newly raised. Lowering or clearing a hand does not play the alert.
 
-## Installation for local testing
+## Installation
 
-Copy the `zft-raised-hands` directory into your Foundry `Data/modules/` directory, restart Foundry if required for module discovery, enable SocketLib, then enable ZFT Raised Hands in the world.
+Copy the `zft-raised-hands` directory into your Foundry `Data/modules/` directory, with ZFT Tools and SocketLib enabled. Hard-refresh the browser after replacing files; reload the world if changed dependencies are not recognized.
 
 ## License
 
 Copyright © 2026 Zantor's Realms, LLC. All rights reserved.
+
+## v1.4.3
+
+- Built from the complete original v1.4.2 module, preserving the bidirectional Party HUD integration and its source file unchanged.
+- Moved Raise/Lower Hand from Token Controls to shared ZFT Tools, visible to GMs and players.
+- Placed Raised Hands after Chat Bubbles, before Cinematics transition actions in the shared toolbar ordering.
+- Added ZFT Tools as a required module; SocketLib remains required and Party HUD remains optional.
+- Existing queue, socket, sidebar, player list, keyboard shortcut, and Party HUD handling remain unchanged.
 
 ## v1.4.2
 

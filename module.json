@@ -7,7 +7,7 @@
       "name": "Zantor's Realms"
     }
   ],
-  "version": "1.4.2",
+  "version": "1.4.3",
   "compatibility": {
     "minimum": "13",
     "verified": "13.351",
@@ -33,6 +33,11 @@
         "id": "socketlib",
         "type": "module",
         "manifest": "https://github.com/farling42/foundryvtt-socketlib/releases/latest/download/module.json"
+      },
+      {
+        "id": "zft-tools",
+        "type": "module",
+        "reason": "Shared ZFT canvas controls for GM and players"
       }
     ]
   }

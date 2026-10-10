@@ -1,4 +1,4 @@
-console.log("[ZFT] 🚀 v1.4.2 | Initializing ZFT Raised Hands");
+console.log("[ZFT] 🚀 v1.4.3 | Initializing ZFT Raised Hands");
 
 import {
   MODULE_ID,
@@ -98,6 +98,22 @@ Hooks.once("ready", async () => {
   console.log(`[ZFT] ✅ v${MODULE_VERSION} | ZFT Raised Hands ready`);
 });
 
-Hooks.on("getSceneControlButtons", registerTokenControls);
+// Preserve the v1.4.2 Party HUD bridge and original raise/lower action.
+// Only relocate its canvas shortcut from Token Controls into ZFT Tools.
+Hooks.on("zft-tools.collectTools", tools => {
+  if (!game.user) return;
+  // Reuse the existing V13 toggle registration so its state and socket
+  // callback remain identical to the original Raised Hands implementation.
+  const proxy = { tokens: { tools: {} } };
+  registerTokenControls(proxy);
+  const raisedHand = proxy.tokens.tools["zft-raised-hand"];
+  if (!raisedHand) return;
+  tools[raisedHand.name] = {
+    ...raisedHand,
+    gmOnly: false,
+    icon: "fas fa-hand-paper",
+    order: 30
+  };
+});
 Hooks.on("renderPlayers", syncPlayerListIndicators);
 Hooks.on("renderSidebar", updateSidebarBadge);
