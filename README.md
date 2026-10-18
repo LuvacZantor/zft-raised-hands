@@ -1,5 +1,10 @@
 # ZFT Raised Hands
 
+## Development standards
+
+Zantor's Realms maintains its authoritative Foundry module development, validation, compatibility, and release policies in a centrally managed, private ZFT standards repository. New feature development is **Foundry V14-first**; the existing version numbers, supported environments, and release history documented here remain unchanged. This documentation notice does not imply V14 compatibility for a previously V13-only build.
+
+
 ZFT Raised Hands is a system-agnostic Foundry VTT module that maintains an authoritative, persistent queue of users who have raised their hands.
 
 ## Version
